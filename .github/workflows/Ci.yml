@@ -24,7 +24,7 @@ jobs:
 
       - name: Build & Tag Docker Image
         run: |
-          docker build -t react-app-ecr .
-          docker tag react-app-ecr:latest 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
+          docker build -t react_app-ecr_eks_workflow .
+          docker tag react_app-ecr_eks_workflow:latest 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
       - name: Push Docker Image to ecr
         run: docker push 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
