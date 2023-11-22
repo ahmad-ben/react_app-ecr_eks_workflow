@@ -9,22 +9,17 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Configure  Amazon Ecr
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: us-east-1
-
-      - name: Login To Amazon Ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build & Tag Docker Image
-        run: |
-          docker build -t react_app-ecr_eks_workflow .
-          docker tag react_app-ecr_eks_workflow:latest 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
-      - name: Push Docker Image to ecr
-        run: docker push 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
+    - uses: actions/checkout@v2
+    - uses: diogohudson/build_docker_2_ecr_eks@v1
+      with:
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        repo: ecr-eks-cicd
+        region: us-east-1
+        tags: latest
+        image_scanning_configuration: true
+        set_repo_policy: true
+        repo_policy_file: repo-policy.json
+        cluster_name: my-great-cluster-name
+        kubectl_command: apply -f kubernetes/service.yml

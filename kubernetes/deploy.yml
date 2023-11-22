@@ -1,0 +1,22 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: react-app-deployment
+#   labels:
+#     app: react-app
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: react-app
+#   template:
+#     metadata:
+#       labels:
+#         app: react-app
+#     spec:
+#       containers:
+#         - name: react-app
+#           image: 607532348214.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-cicd:latest
+#           imagePullPolicy: Always
+#           ports:
+#             - containerPort: 3000 # Should match the port your React app is running on
