@@ -27,7 +27,7 @@ jobs:
           ECR_REGISTRY_URL: 744584490626.dkr.ecr.us-east-1.amazonaws.com
           ECR_REPOSITORY_NAME: ecr-eks-workflow
         run: |
-          docker build -t $ECR_REGISTRY_URL/$ECR_REPOSITORY_NAME:latest .
+          docker build -t $ECR_REGISTRY_URL/$ECR_REPOSITORY_NAME:last .
           docker push -a $ECR_REGISTRY_URL/$ECR_REPOSITORY_NAME
 
       - name: Install kubectl
