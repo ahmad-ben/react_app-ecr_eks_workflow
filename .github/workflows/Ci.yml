@@ -20,13 +20,12 @@ jobs:
           aws-region: us-east-1
 
       - name: Login To Amazon Ecr
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR
         env:
-          ECR_REGISTRY_URL: 402788687549.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY_NAME: ecr-eks-workflow-repo
+          ECR_REGISTRY_URL: 744584490626.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY_NAME: ecr-eks-workflow
         run: |
           docker build -t $ECR_REGISTRY_URL/$ECR_REPOSITORY_NAME:latest .
           docker push -a $ECR_REGISTRY_URL/$ECR_REPOSITORY_NAME
@@ -35,15 +34,10 @@ jobs:
         uses: azure/setup-kubectl@v2.0
         with:
           version: 'v1.28.2'
-        id: install
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name cluster-two --region us-east-1
+        run: aws eks update-kubeconfig --name cluster-one --region us-east-1
 
       - name: Deploy to EKS
         run: |
           kubectl apply -f kubernetes/deploy.yml -f kubernetes/service.yml
-
-
-
-
