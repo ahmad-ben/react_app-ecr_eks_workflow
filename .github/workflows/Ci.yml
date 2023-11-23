@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  login_build_push:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -31,7 +31,7 @@ jobs:
         docker build -t $ECR_REGISTRY_URI/$ECR_REPOSITORY_NAME:latest .
         docker push -a $ECR_REGISTRY_URI/$ECR_REPOSITORY_NAME
 
-  Use EKS:
+  eks:
     - name: Install kubectl
       uses: azure/setup-kubectl@v2.0
       with:
