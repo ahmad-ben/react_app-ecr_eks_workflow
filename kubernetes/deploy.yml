@@ -16,10 +16,7 @@ spec:
     spec:
       containers:
         - name: react-app
-          env:
-            ECR_REGISTRY_URL: 402788687549.dkr.ecr.us-east-1.amazonaws.com
-            ECR_REPOSITORY_NAME: ecr-eks-workflow-repo
-          image: ECR_REGISTRY_URL/ECR_REPOSITORY_NAME:latest
+          image: 402788687549.dkr.ecr.us-east-1.amazonaws.com/ecr-eks-workflow-repo:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000 # Should match the port your React app is running on
